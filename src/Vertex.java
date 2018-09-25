@@ -1,77 +1,57 @@
 import java.util.ArrayList;
 import java.util.List;
-
+//Implements comparable for later use in priority queue
 public class Vertex implements Comparable<Vertex> {
     private String name;
     private List<Edge> edges;
+    private int minCost = Integer.MAX_VALUE;
     private boolean visited;
     private Vertex previousVertex;
-    private int minDistance = Integer.MAX_VALUE;
 
     public Vertex(String name) {
         this.name = name;
         this.edges = new ArrayList<>();
     }
-
-    public void addNeighbour(Edge edge) {
+    public void addEdge(Edge edge) {
         this.edges.add(edge);
     }
-
     public List<Edge> getEdges() {
         return edges;
     }
-
-    public void setEdges(List<Edge> edges) {
-        this.edges = edges;
+    public int getMinCost() {
+        return minCost;
     }
-
+    public void setMinCost(int minDistance) {
+        this.minCost = minDistance;
+    }
     public boolean isVisited() {
         return visited;
     }
-
     public void setVisited(boolean visited) {
         this.visited = visited;
     }
-
     public Vertex getPreviosVertex() {
         return previousVertex;
     }
-
     public void setPreviosVertex(Vertex previosVertex) {
         this.previousVertex = previosVertex;
     }
-
-    public int getMinDistance() {
-        return minDistance;
-    }
-
-    public void setMinDistance(int minDistance) {
-        this.minDistance = minDistance;
-    }
-
     @Override
     public String toString() {
         return name;
     }
-
+    //Use compareTo for priority queue
     @Override
     public int compareTo(Vertex otherVertex) {
-        return Double.compare(this.minDistance, otherVertex.minDistance);
+        return Integer.compare(this.minCost, otherVertex.getMinCost());
     }
+    //Use .equals for seeing when two vertexes are of equal value
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        Vertex comparingTo = (Vertex) obj;
+        if (name.equals(comparingTo.name)) {
             return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Vertex other = (Vertex) obj;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        return true;
+        }
+        return false;
     }
 }

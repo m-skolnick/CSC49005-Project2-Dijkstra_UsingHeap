@@ -8,19 +8,18 @@ public class Graph {
     public Graph() {
     	this. vertexes = new ArrayList<Vertex>();
     }
-    public List<Vertex> getVertexes() {
-        return vertexes;
-    } 
     public Vertex getVertex(Vertex vertexToFind) {
     	return vertexes.get(vertexes.indexOf(vertexToFind));
     }
+    //Reset all of the values for each vertex to their starting value
     public void resetValues() {
     	for(Vertex vertex:vertexes) {
-    		vertex.setMinDistance(Integer.MAX_VALUE);
+    		vertex.setMinCost(Integer.MAX_VALUE);
     		vertex.setPreviosVertex(null);
     		vertex.setVisited(false);
     		}
     }
+    //Given a file scanner, construct a list of vertexes with their corresponding edges
     public void buildGraphFromFile(Scanner fileIn) {
 		
 		String departFrom;
@@ -40,12 +39,8 @@ public class Graph {
 			if(!vertexes.contains(destLoc)) {
 				vertexes.add(destLoc);
 			}
-			getVertex(sourceLoc).addNeighbour(new Edge(getVertex(sourceLoc), getVertex(destLoc), cost));
+			getVertex(sourceLoc).addEdge(new Edge(getVertex(sourceLoc), getVertex(destLoc), cost));
 		}       
         
 	}
-    @Override
-    public Graph clone() throws CloneNotSupportedException {
-        return (Graph)super.clone();
-    }
 }

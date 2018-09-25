@@ -17,7 +17,7 @@ public class MainMethod {
 		System.out.print("Enter the name of an input file: ->");
 		
 		//String filePath = kbd.next();
-		String filePath = "C:\\Users\\Inspiron\\Source\\Repos\\eclipse-workspace\\CSC49005-Project2-Heaps-Dijkstra\\src\\example.txt";
+		String filePath = "C:\\Users\\Inspiron\\Source\\Repos\\eclipse-workspace\\CSC49005-Project2-Dijkstra_UsingHeap\\src\\example.txt";
 				
 		Scanner fileIn = new Scanner(new File(filePath));
 		
@@ -42,9 +42,9 @@ public class MainMethod {
 			endLoc = myGraph.getVertex(endLoc);
 			
 	        Dijkstra dijkstra = new Dijkstra();
-	        dijkstra.computePath(startLoc);
-	        System.out.print("Cheapest trip from "+startLoc+" -> "+endLoc+":"+endLoc.getMinDistance()+" ");
-	        System.out.println(dijkstra.getShortestPathTo(endLoc));
+	        List path = dijkstra.getPath(startLoc,endLoc);
+	        System.out.print("Cheapest trip from "+startLoc+" -> "+endLoc+":"+endLoc.getMinCost()+" ");
+	        System.out.println(path);
 		}
 		while(startLocString != "q");
 	}
