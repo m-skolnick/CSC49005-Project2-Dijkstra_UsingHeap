@@ -1,0 +1,9 @@
+stl jfk 99
+ord jfk 199
+cle jfk 179
+sfo jfk 388
+sfo lax 89
+stl cle 77
+lax cle 30
+sfo stl 200
+ord stl 99

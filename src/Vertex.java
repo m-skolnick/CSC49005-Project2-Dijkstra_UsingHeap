@@ -7,7 +7,7 @@ public class Vertex implements Comparable<Vertex> {
     private int minCost = Integer.MAX_VALUE;
     private boolean visited;
     private Vertex previousVertex;
-
+    
     public Vertex(String name) {
         this.name = name;
         this.edges = new ArrayList<>();
