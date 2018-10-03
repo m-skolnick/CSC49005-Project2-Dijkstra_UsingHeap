@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-//Implements comparable for later use in priority queue
-public class Vertex implements Comparable<Vertex> {
+public class Vertex {
     private String name;
     private List<Edge> edges;
     private int minCost = Integer.MAX_VALUE;
@@ -21,8 +20,8 @@ public class Vertex implements Comparable<Vertex> {
     public int getMinCost() {
         return minCost;
     }
-    public void setMinCost(int minDistance) {
-        this.minCost = minDistance;
+    public void setMinCost(int minCost) {
+        this.minCost = minCost;
     }
     public boolean isVisited() {
         return visited;
@@ -40,12 +39,7 @@ public class Vertex implements Comparable<Vertex> {
     public String toString() {
         return name;
     }
-    //Use compareTo for priority queue
-    @Override
-    public int compareTo(Vertex otherVertex) {
-        return Integer.compare(this.minCost, otherVertex.getMinCost());
-    }
-    //Use .equals for seeing when two vertexes are of equal value
+    //If two vertexes have the same name, we want to say they are the same
     @Override
     public boolean equals(Object obj) {
         Vertex comparingTo = (Vertex) obj;

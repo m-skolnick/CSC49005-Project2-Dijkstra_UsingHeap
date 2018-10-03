@@ -1,20 +1,24 @@
+/*
+ * Created by Dr. Stephen Blythe
+ * Modified by Micaiah Skolnick
+ * 09/20/18
+ */
 public class Heap {
-
-	private HeapNode _values[];
+	private Vertex _values[];
 	private int _currSize;
 	
 	public Heap(int maxSize)
 	{
-		_values = new HeapNode[maxSize+1];
+		_values = new Vertex[maxSize+1];
 		_currSize = 0;
 	}
 	
-	public boolean empty() {return _currSize==0;}
+	public boolean isEmpty() {return _currSize==0;}
 	
-	public void enque(HeapNode newNode)
+	public void enque(Vertex newVertex)
 	{
 		_currSize++;
-		_values[_currSize] = newNode;
+		_values[_currSize] = newVertex;
 		percolateUp(_currSize);
 	}
 	
@@ -26,24 +30,23 @@ public class Heap {
 		int parentIndex = fromIndex/2;
 		
 		// if out of order wrt parent 
-		if (_values[parentIndex].getValue() > 
-			_values[fromIndex ].getValue() )
+		if (_values[parentIndex].getMinCost() > 
+			_values[fromIndex ].getMinCost() )
 		{
 			swap(parentIndex, fromIndex);
 			percolateUp(parentIndex);
 		}
-	}
-	
+	}	
 	private void swap(int index1, int index2)
 	{
-		HeapNode temp = _values[index1];
+		Vertex temp = _values[index1];
 		_values[index1] = _values[index2];
 		_values[index2] = temp;
 	}
 	
-	public HeapNode deque()
+	public Vertex deque()
 	{
-		HeapNode result = _values[1];
+		Vertex result = _values[1];
 		
 		
 		_values[1] = _values[_currSize];
@@ -65,8 +68,8 @@ public class Heap {
 		else if (rightChildIndex > _currSize)
 		{
 			// look at left child, and percolate down if needed
-			if (_values[fromIndex].getValue() > 
-				_values[leftChildIndex].getValue() )
+			if (_values[fromIndex].getMinCost() > 
+				_values[leftChildIndex].getMinCost() )
 			{
 				swap(fromIndex, leftChildIndex);
 				percolateDown(leftChildIndex); // not needed
@@ -75,18 +78,12 @@ public class Heap {
 		else // i have two children ...
 		{
 			int minChildIndex = leftChildIndex;
-			if (_values[rightChildIndex].getValue() < 
-				_values[leftChildIndex].getValue() )
+			if (_values[rightChildIndex].getMinCost() < 
+				_values[leftChildIndex].getMinCost() )
 				minChildIndex = rightChildIndex;
 			
 			swap(minChildIndex, fromIndex);
 			percolateDown(minChildIndex);
 		}
-	}
-	
-	public void changeValue(int toNewVal)
-	{
-		
-	}
-	
+	}	
 }

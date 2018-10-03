@@ -1,33 +1,30 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.PriorityQueue;
 
 public class Dijkstra {
     public List<Vertex> getPath(Vertex startVertex, Vertex targetVertex) {
     	//Set the starting vertex minimum distance to 0
         startVertex.setMinCost(0);
-        //Create a new priority queue
-        PriorityQueue<Vertex> priorityQueue = new PriorityQueue<>();
-        //Add the starting vertex to the head of the queue
-        priorityQueue.add(startVertex);
-        
-        while (!priorityQueue.isEmpty()) {
-        	//Grab the vertex at the head of the queue
-            Vertex currentV = priorityQueue.poll();
+        //Create a new heap
+        Heap myHeap = new Heap(200000);
+        //Add the starting vertex to the head of the heap
+        myHeap.enque(startVertex);
+        while (!myHeap.isEmpty()) {
+        	//Grab the vertex at the head of the heap
+        	Vertex currentV = myHeap.deque();
             //Cycle through the edges from this vertex
             for (Edge edge : currentV.getEdges()) {
                 Vertex targetV = edge.getTargetVertex();
                 int cost = edge.getCost();
                 int minCost = currentV.getMinCost() + cost;
-                //If the minimum cost to the target vertex is shorter when
+                //If the minimum cost to a vertex connected to this one by an edge is shorter when
                 //coming from this vertex, switch the previous vertex to this one
                 //and change the min cost
                 if (minCost < targetV.getMinCost()) {
-                    priorityQueue.remove(currentV);
                     targetV.setPreviosVertex(currentV);
                     targetV.setMinCost(minCost);
-                    priorityQueue.add(targetV);                    
+                    myHeap.enque(targetV);                  
                 }
             }
             //If the current vertex is the target, return path
